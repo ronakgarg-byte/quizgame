@@ -33,12 +33,27 @@ function startTheQuiz() {
 
 let timeleft = 5;
 let timerId;
-
 function showTimer() {
   timeleft--;
   timerDiv.textContent = timeleft;
+
   if (timeleft <= 0) {
     clearInterval(timerId);
+
+    questioninterval++;
+
+    if (questioninterval < questions.length) {
+      timeleft = 5;
+
+      printQuestionAndOptions();
+
+      timerDiv.textContent = timeleft;
+
+      timerId = setInterval(showTimer, 1000);
+    } else {
+      questionDiv.innerHTML = "<h1>Quiz Completed</h1>";
+      timerDiv.textContent = "";
+    }
   }
 }
 
