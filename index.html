@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div class="screen screen1 initial">
+        <h1>Let's test your knowledge</h1>
+        <input type="text" placeholder="Enter your name" id="name" />
+        <button id="start">Start the Quiz</button>
+      </div>
+      <div class="screen screen2 hidden">
+        <div class="quiz">
+          <div class="timer"></div>
+          <div class="question">Question 1</div>
+          <div class="options">
+            <button>Option 1</button>
+            <button>Option 2</button>
+            <button>Option 3</button>
+            <button>Option 4</button>
+          </div>
+        </div>
+      </div>
+      <div class="screen screen3 hidden">
+        <div class="score">
+          <h2>Congratulations!!</h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <script src="quiz.js" type="module"></script>
+  </body>
+</html>
