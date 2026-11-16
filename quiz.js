@@ -11,6 +11,7 @@ const timerDiv = screen2.querySelector(".timer");
 let answerbutton = document.querySelectorAll(".options button");
 let questioninterval = 0;
 let score=0;
+let timerId;
 
 // empty array is initialized on page load.
 const datainLS = JSON.parse(localStorage.getItem("data")) || [];
@@ -32,7 +33,7 @@ function startTheQuiz() {
 }
 
 let timeleft = 5;
-let timerId;
+
 
 function showTimer() {
   timeleft--;
@@ -57,31 +58,34 @@ function printQuestionAndOptions() {
 }
 
 
+
+
 answerbutton.forEach((button) => {
   button.addEventListener("click", function () {
     clearInterval(timerId);
 
     let currentquestion = questions[questioninterval];
 
-    answerbutton.forEach((btn) => {
-      if (btn.textContent.trim() === currentquestion.a) {
-        btn.classList.add("correct");
-      } else {
-        btn.classList.add("wrong");
-      }
+    if (button.textContent.trim() === currentquestion.a) {
+      button.classList.add("correct");
+      score++;
+    } else {
+      button.classList.add("wrong");
 
+      answerbutton.forEach((btn) => {
+        if (btn.textContent.trim() === currentquestion.a) {
+          btn.classList.add("correct");
+        }
+      });
+    }
+
+    answerbutton.forEach((btn) => {
       btn.disabled = true;
     });
-
-    if (button.textContent.trim() === currentquestion.a) {
-      score++;
-    }
 
     setTimeout(nextQuestion, 1000);
   });
 });
-
-
 
 function nextQuestion() {
   clearInterval(timerId);
