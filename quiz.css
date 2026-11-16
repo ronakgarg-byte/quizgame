@@ -24,37 +24,3 @@
   border-radius: 1rem;
   box-shadow: 2px 3px 4px 4px rgba(0, 0, 0, 0.4);
 }
-.screen1 h1,
-.question h1 {
-  margin-bottom: 1rem;
-}
-input,
-button {
-  padding: 0.75rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  border-radius: 0.5rem;
-}
-button {
-  cursor: pointer;
-}
-.quiz {
-  position: relative;
-}
-.timer {
-  position: absolute;
-  right: -25px;
-  top: -25px;
-  background-color: brown;
-  color: #fff;
-  border-radius: 50%;
-  height: 30px;
-  width: 30px;
-  display: grid;
-  place-items: center;
-}
-.options {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 50px 50px;
-  grid-gap: 1rem;
-}

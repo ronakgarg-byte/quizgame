@@ -10,13 +10,13 @@ const timerDiv = screen2.querySelector(".timer");
 
 let answerbutton = document.querySelectorAll(".options button");
 let questioninterval = 0;
+let score=0;
 
 // empty array is initialized on page load.
 const datainLS = JSON.parse(localStorage.getItem("data")) || [];
 // we can check LS if 'data' is there, we can initialize from LS, otherwise an empty array
 
 startQuiz.addEventListener("click", startTheQuiz);
-
 function startTheQuiz() {
   if (name.value.length <= 0) {
     alert("Enter your name");
@@ -33,38 +33,84 @@ function startTheQuiz() {
 
 let timeleft = 5;
 let timerId;
+
 function showTimer() {
   timeleft--;
   timerDiv.textContent = timeleft;
 
   if (timeleft <= 0) {
-    clearInterval(timerId);
-
-    questioninterval++;
-
-    if (questioninterval < questions.length) {
-      timeleft = 5;
-
-      printQuestionAndOptions();
-
-      timerDiv.textContent = timeleft;
-
-      timerId = setInterval(showTimer, 1000);
-    } else {
-      questionDiv.innerHTML = "<h1>Quiz Completed</h1>";
-      timerDiv.textContent = "";
-    }
+    nextQuestion();
   }
 }
-
 function printQuestionAndOptions() {
   let currentquestion = questions[questioninterval];
+
   questionDiv.innerHTML = `<h1>${currentquestion.q}</h1>`;
 
   answerbutton.forEach((button, index) => {
-    button.innerHTML = `${currentquestion.o[index]}`;
+    button.textContent = currentquestion.o[index];
+
+    button.classList.remove("correct", "wrong");
+    button.disabled = false;
+    button.style.display = "inline";
   });
 }
+
+
+answerbutton.forEach((button) => {
+  button.addEventListener("click", function () {
+    clearInterval(timerId);
+
+    let currentquestion = questions[questioninterval];
+
+    answerbutton.forEach((btn) => {
+      if (btn.textContent.trim() === currentquestion.a) {
+        btn.classList.add("correct");
+      } else {
+        btn.classList.add("wrong");
+      }
+
+      btn.disabled = true;
+    });
+
+    if (button.textContent.trim() === currentquestion.a) {
+      score++;
+    }
+
+    setTimeout(nextQuestion, 1000);
+  });
+});
+
+
+
+function nextQuestion() {
+  clearInterval(timerId);
+
+  questioninterval++;
+
+  if (questioninterval < questions.length) {
+    timeleft = 5;
+
+    printQuestionAndOptions();
+
+    timerDiv.textContent = timeleft;
+
+    timerId = setInterval(showTimer, 1000);
+  } else {
+    questionDiv.innerHTML = `
+      <h1>Quiz Completed</h1>
+      <h2>Your Score: ${score}/${questions.length}</h2>
+    `;
+
+    timerDiv.textContent = "";
+
+    answerbutton.forEach((button) => {
+      button.style.display = "none";
+    });
+  }
+}
+
+
 
 function addToLS(data) {
   const obj = {
