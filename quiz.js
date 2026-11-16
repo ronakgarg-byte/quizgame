@@ -22,7 +22,7 @@ function startTheQuiz() {
   if (name.value.length <= 0) {
     alert("Enter your name");
   } else {
-    addToLS(name.value);
+   
     screen1.classList.add("hidden");
     screen2.classList.remove("hidden");
 
@@ -101,6 +101,7 @@ function nextQuestion() {
 
     timerId = setInterval(showTimer, 1000);
   } else {
+     addToLS(name.value);
     addToLS(name.value, score);
     questionDiv.innerHTML = `
       <h1>Quiz Completed</h1>
