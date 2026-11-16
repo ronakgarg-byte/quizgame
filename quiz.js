@@ -97,6 +97,7 @@ function nextQuestion() {
 
     timerId = setInterval(showTimer, 1000);
   } else {
+    addToLS(name.value, score);
     questionDiv.innerHTML = `
       <h1>Quiz Completed</h1>
       <h2>Your Score: ${score}/${questions.length}</h2>
@@ -112,10 +113,10 @@ function nextQuestion() {
 
 
 
-function addToLS(data) {
+function addToLS(data,score) {
   const obj = {
     name: data,
-    score: 0,
+    score:score,
     time: new Date().toLocaleString(),
   };
 
