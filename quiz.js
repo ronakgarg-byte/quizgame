@@ -44,7 +44,7 @@ function showTimer() {
   }
 }
 function printQuestionAndOptions() {
-  let currentquestion = questions[questioninterval];
+  let currentquestion = questions[getRandomquestion()];
 
   questionDiv.innerHTML = `<h1>${currentquestion.q}</h1>`;
 
@@ -64,7 +64,7 @@ answerbutton.forEach((button) => {
   button.addEventListener("click", function () {
     clearInterval(timerId);
 
-    let currentquestion = questions[questioninterval];
+    let currentquestion = questions[getRandomquestion()];
 
     if (button.textContent.trim() === currentquestion.a) {
       button.classList.add("correct");
@@ -114,6 +114,17 @@ function nextQuestion() {
       button.style.display = "none";
     });
   }
+}
+function getRandomquestion()
+ {
+  const allowedNum = "1234";
+  let question="";
+  
+  for (let i = 0; i < 3; i++) {
+    question= allowedNum[Math.floor(Math.random() * allowedNum.length)];
+  }
+
+  return question ;
 }
 
 
